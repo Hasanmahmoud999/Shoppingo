@@ -1,4 +1,4 @@
-import React, { useState ,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import SideNavbar from '../AddProduct/SideNavbar/SideNavbar';
 import { AddShoppingCart, Favorite } from '@mui/icons-material';
 import axios from 'axios';
@@ -9,7 +9,7 @@ import {
   Label,
   InnerContainer,
 } from '../AddProduct/Home/AddProductCss';
-import  HeaderImage  from '../Profile/HeaderImage';
+import HeaderImage from '../Profile/HeaderImage';
 import {
   PaymentsContainer,
   PaymentsInfo,
@@ -35,8 +35,8 @@ function InsertP(props) {
   const [errMsg, setErrMsg] = useState('');
 
   const route = useNavigate();
-  const  user= useSelector((state) => state.user);
-  const token=localStorage.getItem("userToken");
+  const user = useSelector((state) => state.user);
+  const token = localStorage.getItem('userToken');
   const [PaymentName, setPaymentName] = useState('');
   const [PaymentValue, setPaymentValue] = useState('');
   const [PaymentDate, setPaymentDate] = useState('');
@@ -46,16 +46,14 @@ function InsertP(props) {
   // console.log(PaymentDate,typeof(PaymentDate));
   // console.log(PaymentType,typeof(PaymentType));
 
-  const [image,setImage]=useState();
-  useEffect(()=>{
-    
-    if(user.user.imageUrl.length>1){
-      setImage(`http://localhost:5000/${user.user.imageUrl}`);
-    }
-    else{
+  const [image, setImage] = useState();
+  useEffect(() => {
+    if (user.user.imageUrl.length > 1) {
+      setImage(`https://shoppingoapi.vercel.app//${user.user.imageUrl}`);
+    } else {
       setImage(require('../../Images/Default.jpg'));
     }
-  })
+  });
 
   const handlePopup = (e) => {
     e.preventDefault();
@@ -67,9 +65,8 @@ function InsertP(props) {
   const sendData = async (e) => {
     e.preventDefault();
     try {
-
-      const res=await axios.post(
-        'http://localhost:5000/managment/addpayment',
+      const res = await axios.post(
+        'https://shoppingoapi.vercel.app//managment/addpayment',
         {
           name: PaymentName,
           value: PaymentValue,
@@ -81,32 +78,33 @@ function InsertP(props) {
             authorization: `bearer ${token}`,
           },
         }
-      )  
+      );
 
       dispatch(registerUser(res.data));
       route('/Mangment/Payments');
-
     } catch (err) {
-
-      if (!err.response){
-        setErrMsg(<h4 >No Server Response</h4>);
+      if (!err.response) {
+        setErrMsg(<h4>No Server Response</h4>);
         showPopupNote();
-      }
-      else if(err.response.status!==200&&err.response.status!==201&&err.response.data.message){
+      } else if (
+        err.response.status !== 200 &&
+        err.response.status !== 201 &&
+        err.response.data.message
+      ) {
         setErrMsg(<h4>{err.response.data.message}</h4>);
         showPopupNote();
-      }
-      else if(err.response.status!==200&&err.response.status!==201&&!err.response.data.message){
+      } else if (
+        err.response.status !== 200 &&
+        err.response.status !== 201 &&
+        !err.response.data.message
+      ) {
         setErrMsg(<h4>{err.message}</h4>);
         showPopupNote();
-      }
-      else {
+      } else {
         setErrMsg(<h4>Failed</h4>);
         showPopupNote();
       }
-      
     }
-
   };
 
   return (
@@ -149,10 +147,7 @@ function InsertP(props) {
             <div style={{ marginTop: '10px', fontSize: '15px' }}>
               Hello , {user.user.name}
             </div>
-            <HeaderImage
-              image={image}
-              
-            ></HeaderImage>
+            <HeaderImage image={image}></HeaderImage>
           </div>
         </TopNavbar>
 
@@ -287,18 +282,19 @@ function InsertP(props) {
                     <option Value="food">Food</option>
                     <option Value="clothes">clothes</option>
                     <option Value="schoolCost">School Cost</option>
-                    <option Value="transporation">
-                      Transportation
-                    </option>
-                    <option Value="healthInsurunce">
-                      Health insurance
-                    </option>
+                    <option Value="transporation">Transportation</option>
+                    <option Value="healthInsurunce">Health insurance</option>
                     <option Value="entertainment">Entertainment</option>
                   </select>
                 </InputContainer>
               </InputContainer>
             </FormContainer>
-            <Button type="submit" form="form1" value="Submit" style={{marginLeft: "415px"}}>
+            <Button
+              type="submit"
+              form="form1"
+              value="Submit"
+              style={{ marginLeft: '415px' }}
+            >
               Insert Payment
             </Button>
           </form>

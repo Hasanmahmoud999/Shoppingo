@@ -5,7 +5,7 @@ import { AddShoppingCart, Favorite } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
 import { Route, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import {ChromePicker} from 'react-color'; 
+import { ChromePicker } from 'react-color';
 
 import {
   Container,
@@ -39,44 +39,33 @@ import {
   Form,
 } from './AddProductCss';
 
-import HeaderImage  from '../../Profile/HeaderImage';
+import HeaderImage from '../../Profile/HeaderImage';
 import $ from 'jquery';
-import NotePopup ,{showPopupNote}from '../../PopUp/NotePopup';
+import NotePopup, { showPopupNote } from '../../PopUp/NotePopup';
 import { registerUser } from '../../../Redux/Slices/UserSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import {useLocation} from 'react-router-dom';
-
+import { useLocation } from 'react-router-dom';
 
 var i = 0;
-let  ColorArr = [];
-
-
+let ColorArr = [];
 
 function AddProduct(props) {
   const location = useLocation();
-  const fromdash=location.state.fromdash;
-
-
+  const fromdash = location.state.fromdash;
 
   let stylesForSelect;
-  let stylesForCheckbox={};
+  let stylesForCheckbox = {};
   let stylesForAddButton;
   let stylesForRemoveButton;
   let stylesForFabricTypeDiv;
   let stylesForImageButton;
   let stylesForImageButton2;
 
-
-
-
-
-
-
-  const  user= useSelector((state) => state.user);
+  const user = useSelector((state) => state.user);
   const route = useNavigate();
 
   const [errMsg, setErrMsg] = useState('');
-  const token=localStorage.getItem('userToken',);
+  const token = localStorage.getItem('userToken');
   const [Gender, setGender] = useState('man');
   const [Catg, setCatg] = useState('Blazer');
   const [quantity, setquantity] = useState(null);
@@ -96,59 +85,39 @@ function AddProduct(props) {
   const [womanChecked, setwomanChecked] = useState(false);
   const [Color, setColor] = useState('');
   const [noteMsg, setNoteMsg] = useState('');
-  const [file, setFile] = useState(require('../../../Images/defaultProduct.jfif'));
-  const [image,setImage]=useState();
-  
-  console.log(location.state.id,fromdash)
-  const id =   location.state.id
+  const [file, setFile] = useState(
+    require('../../../Images/defaultProduct.jfif')
+  );
+  const [image, setImage] = useState();
 
-  useEffect(()=>{
+  console.log(location.state.id, fromdash);
+  const id = location.state.id;
 
-
-
-
-
-
-    if(fromdash)
-    {
-  
-      axios.get(
-        `http://localhost:5000/shop/getProductInfoForUpdate/${id}`,
+  useEffect(() => {
+    if (fromdash) {
+      axios
+        .get(
+          `https://shoppingoapi.vercel.app//shop/getProductInfoForUpdate/${id}`,
           {
-            headers:{
-                authorization : `Bearer ${token}`
-            }
-        }
-      ).then(res=>{
-  
-        console.log(res.data)
-  
-      }).catch (err=> {
-  
-        console.log(err)
-        
-  
-      })
-  
-    
-    
-    
-    
+            headers: {
+              authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
 
-
-
-
-
-
-    
-    if(user.user.imageUrl.length>1){
-      setImage(`http://localhost:5000/${user.user.imageUrl}`);
-    }
-    else{
+    if (user.user.imageUrl.length > 1) {
+      setImage(`https://shoppingoapi.vercel.app//${user.user.imageUrl}`);
+    } else {
       setImage(require('../../../Images/Default.jpg'));
     }
-  })
+  });
 
   const onFileChange = (event) => {
     setselectImag(event.target.files[0]);
@@ -178,11 +147,11 @@ function AddProduct(props) {
   };
 
   //todo create product color
-    
+
   const addColorFunc = (e) => {
     e.preventDefault();
-    document.getElementById("colorSelector").style.display = "block";
-    document.getElementById("ButtonsDiv").style.display = "none";
+    document.getElementById('colorSelector').style.display = 'block';
+    document.getElementById('ButtonsDiv').style.display = 'none';
   };
 
   //todo delete product color
@@ -191,39 +160,32 @@ function AddProduct(props) {
     if (document.getElementById('addColorDiv').children) {
       document.getElementById('addColorDiv').lastElementChild.remove();
     }
-
   };
-  
+
   const selectColorFromPicker = (e) => {
-    e.preventDefault();   
+    e.preventDefault();
     ColorArr.push(Color);
-    document.getElementById("colorSelector").style.display = "none";
+    document.getElementById('colorSelector').style.display = 'none';
     var In = document.createElement('input');
     In.type = 'button';
-    In.style.backgroundColor=Color;
+    In.style.backgroundColor = Color;
     In.name = 'productColor';
     In.style.border = 'none';
     In.style.width = '30px';
     In.style.height = '30px';
     In.style.borderRadius = '10px';
     $('#addColorDiv').append(In);
-    document.getElementById("ButtonsDiv").style.display = "block";
-
-    
-  }
+    document.getElementById('ButtonsDiv').style.display = 'block';
+  };
 
   const sendData = (e) => {
     e.preventDefault();
     const fd = new FormData();
 
-    
-    
-    
-    
-    if(fromdash){
-      console.log(ColorArr)
+    if (fromdash) {
+      console.log(ColorArr);
       fd.append('quantity', quantity);
-      fd.append('colors1',ColorArr);
+      fd.append('colors1', ColorArr);
       fd.append('s', s);
       fd.append('m', m);
       fd.append('l', l);
@@ -232,194 +194,183 @@ function AddProduct(props) {
       fd.append('xxxl', xxxl);
       fd.append('price', ProductPrice);
 
+      console.log(id, '...........', fd);
 
+      axios
+        .post(
+          `https://shoppingoapi.vercel.app//shop/updateProduct/${id}`,
+          {
+            colors1: ColorArr,
+            quantity: quantity,
+            s: s,
+            m: m,
+            l: l,
+            xl: xl,
+            xxl: xxl,
+            xxxl: xxxl,
+            price: ProductPrice,
+          },
+          {
+            headers: { authorization: `bearer ${token}` },
+          }
+        )
+        .then((res) => {
+          console.log(res.data);
+          ColorArr = [];
+          route('/Mangment/SellerDashboard');
+        })
+        .catch((err) => {
+          if (!err.response) {
+            setErrMsg(<h4>No Server Response</h4>);
+            showPopupNote();
+          } else if (
+            err.response.status !== 200 &&
+            err.response.status !== 201 &&
+            err.response.data.message
+          ) {
+            setErrMsg(<h4>{err.response.data.message}</h4>);
+            showPopupNote();
+          } else if (
+            err.response.status !== 200 &&
+            err.response.status !== 201 &&
+            !err.response.data.message
+          ) {
+            setErrMsg(<h4>{err.message}</h4>);
+            showPopupNote();
+          } else {
+            setErrMsg(<h4>Failed</h4>);
+            showPopupNote();
+          }
+        });
+    } else {
+      fd.append('gender', Gender);
+      fd.append('categ', Catg);
+      fd.append('price', ProductPrice);
+      fd.append('percent', offer);
+      fd.append('s', s);
+      fd.append('m', m);
+      fd.append('l', l);
+      fd.append('xl', xl);
+      fd.append('xxl', xxl);
+      fd.append('xxxl', xxxl);
+      fd.append('colors1', ColorArr);
+      // fd.append('red', 'red');
+      fd.append('fabricType', FabricType);
+      fd.append('quantity', quantity);
+      fd.append('Brand', brand);
+      fd.append('numOfModel', NumberOfModel);
+      fd.append('productImage', selectImag, selectImag.name);
+      // fd.append('colors1',ColorArr);
 
-      console.log(id,"...........",fd)
-      
-    axios.post(`http://localhost:5000/shop/updateProduct/${id}`, 
-    {colors1:ColorArr,
-      quantity: quantity,
-      s: s,
-      m: m,
-      l: l,
-      xl: xl,
-      xxl: xxl,
-      xxxl: xxxl,
-      price:ProductPrice,
-    
-    
-    
-    
-    }, {
-      headers: { authorization: `bearer ${token}` },
-    })
-    .then(
-      (res)=>
-      {
-      console.log(res.data);
-      ColorArr = [];
-      route('/Mangment/SellerDashboard');
-      }
-    )
-    .catch((err) =>{
-
-      if (!err.response){
-        setErrMsg(<h4 >No Server Response</h4>);
-        showPopupNote();
-      }
-      else if(err.response.status!==200&&err.response.status!==201&&err.response.data.message){
-        setErrMsg(<h4>{err.response.data.message}</h4>);
-        showPopupNote();
-      }
-      else if(err.response.status!==200&&err.response.status!==201&&!err.response.data.message){
-        setErrMsg(<h4>{err.message}</h4>);
-        showPopupNote();
-      }
-      else {
-        setErrMsg(<h4>Failed</h4>);
-        showPopupNote();
-      }
-      
-    })
-
+      axios
+        .post('https://shoppingoapi.vercel.app//shop/addProduct', fd, {
+          headers: { authorization: `bearer ${token}` },
+        })
+        .then((res) => {
+          console.log(res.data);
+          ColorArr = [];
+          route('/Mangment/SellerDashboard');
+        })
+        .catch((err) => {
+          if (!err.response) {
+            setErrMsg(<h4>No Server Response</h4>);
+            showPopupNote();
+          } else if (
+            err.response.status !== 200 &&
+            err.response.status !== 201 &&
+            err.response.data.message
+          ) {
+            setErrMsg(<h4>{err.response.data.message}</h4>);
+            showPopupNote();
+          } else if (
+            err.response.status !== 200 &&
+            err.response.status !== 201 &&
+            !err.response.data.message
+          ) {
+            setErrMsg(<h4>{err.message}</h4>);
+            showPopupNote();
+          } else {
+            setErrMsg(<h4>Failed</h4>);
+            showPopupNote();
+          }
+        });
     }
-    else{
-    fd.append('gender', Gender);
-    fd.append('categ', Catg);
-    fd.append('price', ProductPrice);
-    fd.append('percent', offer);
-    fd.append('s', s);
-    fd.append('m', m);
-    fd.append('l', l);
-    fd.append('xl', xl);
-    fd.append('xxl', xxl);
-    fd.append('xxxl', xxxl);
-    fd.append('colors1',ColorArr);
-    // fd.append('red', 'red');
-    fd.append('fabricType', FabricType);
-    fd.append('quantity', quantity);
-    fd.append('Brand', brand);
-    fd.append('numOfModel', NumberOfModel);
-    fd.append('productImage', selectImag, selectImag.name);
-    // fd.append('colors1',ColorArr);
-
-    axios.post('http://localhost:5000/shop/addProduct', fd, {
-      headers: { authorization: `bearer ${token}` },
-    })
-    .then(
-      (res)=>
-      {
-      console.log(res.data);
-      ColorArr = [];
-      route('/Mangment/SellerDashboard');
-      }
-    )
-    .catch((err) =>{
-
-      if (!err.response){
-        setErrMsg(<h4 >No Server Response</h4>);
-        showPopupNote();
-      }
-      else if(err.response.status!==200&&err.response.status!==201&&err.response.data.message){
-        setErrMsg(<h4>{err.response.data.message}</h4>);
-        showPopupNote();
-      }
-      else if(err.response.status!==200&&err.response.status!==201&&!err.response.data.message){
-        setErrMsg(<h4>{err.message}</h4>);
-        showPopupNote();
-      }
-      else {
-        setErrMsg(<h4>Failed</h4>);
-        showPopupNote();
-      }
-      
-    })}
   };
 
   //todo ************************
 
-
-
-
- 
-
-
-
-
-
-  
   // const styles = (fromdash)?{pointerEvents:'none !important'}:
-  if(fromdash)
-  {stylesForSelect={
-    width: '64%',
-    padding: '10px',
-    color: '#6b7aa1',
-    borderRadius: '10px',
-    border: 'none',
-    boxShadow: '10px 4px 4px rgba(0, 0, 0, 0.25) ',
-    pointerEvents: 'none',
-    backgroundColor:'#a9a9a9'
-  };
+  if (fromdash) {
+    stylesForSelect = {
+      width: '64%',
+      padding: '10px',
+      color: '#6b7aa1',
+      borderRadius: '10px',
+      border: 'none',
+      boxShadow: '10px 4px 4px rgba(0, 0, 0, 0.25) ',
+      pointerEvents: 'none',
+      backgroundColor: '#a9a9a9',
+    };
 
-  stylesForCheckbox={pointerEvents: 'none',
-  backgroundColor:'#a9a9a9'};
+    stylesForCheckbox = { pointerEvents: 'none', backgroundColor: '#a9a9a9' };
 
+    stylesForFabricTypeDiv = {
+      width: '65%',
+      padding: '10px',
+      color: '#6b7aa1',
+      borderRadius: '10px',
+      border: 'none',
+      boxShadow: '10px 4px 4px rgba(0, 0, 0, 0.25) ',
+      pointerEvents: 'none',
+      backgroundColor: '#a9a9a9',
+    };
 
-  stylesForFabricTypeDiv={
-    width: '65%',
-    padding: '10px',
-    color: '#6b7aa1',
-    borderRadius: '10px',
-    border: 'none',
-    boxShadow: '10px 4px 4px rgba(0, 0, 0, 0.25) ',
-    pointerEvents: 'none',
-  backgroundColor:'#a9a9a9'
-  }
+    stylesForImageButton = {
+      marginLeft: '10px',
+      display: 'none',
+      pointerEvents: 'none',
+      backgroundColor: '#a9a9a9',
+    };
 
-  stylesForImageButton={ marginLeft: '10px', display: 'none',pointerEvents: 'none',
-  backgroundColor:'#a9a9a9' }
-
-
-  stylesForImageButton2={
-    marginTop: '10px',
-    color: '#6b7aa1',
-    background: '#f5cb59',
-    padding: '1px',
-    width: '35%',
-    pointerEvents: 'none',
-  backgroundColor:'#a9a9a9' 
-  }
-
-
-}
-  else 
-  {stylesForSelect={ width: '64%',
-  padding: '10px',
-  color: '#6b7aa1',
-  borderRadius: '10px',
-  border: 'none',
-  boxShadow: '10px 4px 4px rgba(0, 0, 0, 0.25) '};
-
-  stylesForFabricTypeDiv={
-    width: '65%',
-    padding: '10px',
-    color: '#6b7aa1',
-    borderRadius: '10px',
-    border: 'none',
-    boxShadow: '10px 4px 4px rgba(0, 0, 0, 0.25) ',}
-
-    stylesForImageButton={ marginLeft: '10px', display: 'none'}
-
-
-    stylesForImageButton2={
+    stylesForImageButton2 = {
       marginTop: '10px',
       color: '#6b7aa1',
       background: '#f5cb59',
       padding: '1px',
-      width: '35%',}
+      width: '35%',
+      pointerEvents: 'none',
+      backgroundColor: '#a9a9a9',
+    };
+  } else {
+    stylesForSelect = {
+      width: '64%',
+      padding: '10px',
+      color: '#6b7aa1',
+      borderRadius: '10px',
+      border: 'none',
+      boxShadow: '10px 4px 4px rgba(0, 0, 0, 0.25) ',
+    };
 
+    stylesForFabricTypeDiv = {
+      width: '65%',
+      padding: '10px',
+      color: '#6b7aa1',
+      borderRadius: '10px',
+      border: 'none',
+      boxShadow: '10px 4px 4px rgba(0, 0, 0, 0.25) ',
+    };
+
+    stylesForImageButton = { marginLeft: '10px', display: 'none' };
+
+    stylesForImageButton2 = {
+      marginTop: '10px',
+      color: '#6b7aa1',
+      background: '#f5cb59',
+      padding: '1px',
+      width: '35%',
+    };
   }
-  
+
   return (
     <Container>
       <NotePopup msg={errMsg} color="red" />
@@ -430,7 +381,14 @@ function AddProduct(props) {
             <Title>Add Product</Title>
           </div>
 
-          <div style={{display: 'flex',paddingTop: '10px',paddingRight: '10px',height: '100%'}} >
+          <div
+            style={{
+              display: 'flex',
+              paddingTop: '10px',
+              paddingRight: '10px',
+              height: '100%',
+            }}
+          >
             <Link to="/Favourite">
               <IconButton
                 onClick={() => {
@@ -455,14 +413,12 @@ function AddProduct(props) {
             <div style={{ marginTop: '10px', fontSize: '15px' }}>
               Hello , {user.user.name}
             </div>
-            <HeaderImage image={image}
-              
-            />
+            <HeaderImage image={image} />
           </div>
         </TopNavbar>
 
         <Content>
-          <Form onSubmit={sendData} >
+          <Form onSubmit={sendData}>
             <Section>
               <ProductType>
                 <Label>Product Type</Label>
@@ -560,28 +516,51 @@ function AddProduct(props) {
 
                 <div style={{ marginBottom: '15px' }}>
                   <div id="ButtonsDiv">
-                  <Button
-                    type="button"
-                    onClick={addColorFunc}
-                    style={{width: '30%', height: '50px', marginLeft: '0px'}}
-                  >
-                    Add Color
-                  </Button>
-                  <Button
-                    type="button"
-                    onClick={removeColorFunc}
-                    style={{width: '30%', height: '50px'}}
-                  >
-                    Remove Color
-                  </Button>
+                    <Button
+                      type="button"
+                      onClick={addColorFunc}
+                      style={{
+                        width: '30%',
+                        height: '50px',
+                        marginLeft: '0px',
+                      }}
+                    >
+                      Add Color
+                    </Button>
+                    <Button
+                      type="button"
+                      onClick={removeColorFunc}
+                      style={{ width: '30%', height: '50px' }}
+                    >
+                      Remove Color
+                    </Button>
                   </div>
-                  <div id="colorSelector" style={{display:"none" , marginTop:"20px"}}>
-                  <ChromePicker id="jasem" color={Color} onChange={UpdatedColor => setColor(UpdatedColor.hex)} ></ChromePicker>
-                  <Button onClick={selectColorFromPicker} style={{marginTop:"20px"}}>Add</Button>
+                  <div
+                    id="colorSelector"
+                    style={{ display: 'none', marginTop: '20px' }}
+                  >
+                    <ChromePicker
+                      id="jasem"
+                      color={Color}
+                      onChange={(UpdatedColor) => setColor(UpdatedColor.hex)}
+                    ></ChromePicker>
+                    <Button
+                      onClick={selectColorFromPicker}
+                      style={{ marginTop: '20px' }}
+                    >
+                      Add
+                    </Button>
                   </div>
                 </div>
 
-                <div id="addColorDiv" style={{ width: '65%' , display: "flex" , justifyContent: "space-evenly"}}></div>
+                <div
+                  id="addColorDiv"
+                  style={{
+                    width: '65%',
+                    display: 'flex',
+                    justifyContent: 'space-evenly',
+                  }}
+                ></div>
               </ProductDescription>
 
               <Label>Quantity</Label>
@@ -592,13 +571,15 @@ function AddProduct(props) {
               />
 
               <Label>Brand</Label>
-              <InputText  style={stylesForCheckbox}  onChange={(e) => setbrand(e.target.value)} />
+              <InputText
+                style={stylesForCheckbox}
+                onChange={(e) => setbrand(e.target.value)}
+              />
 
               <Label>Number of Model</Label>
               <InputText
                 style={stylesForCheckbox}
                 type="number"
-                
                 onChange={(e) => setNumberOfModel(e.target.value)}
               />
             </Section>
@@ -722,7 +703,6 @@ function AddProduct(props) {
                     onChange={onFileChange}
                     className="filetype"
                     style={stylesForImageButton}
-                    
                   />
 
                   <img
@@ -738,7 +718,7 @@ function AddProduct(props) {
                 </div>
               </ProductImage>
               <DivButton>
-                <Button2 >{(fromdash)?"Update":"Add Product"}</Button2>
+                <Button2>{fromdash ? 'Update' : 'Add Product'}</Button2>
               </DivButton>
             </Section>
           </Form>

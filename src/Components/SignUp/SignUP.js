@@ -1,9 +1,34 @@
-import React,{useState,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../Home/Navbar/Navbar';
 import LSbackground from '../../Images/SignUp2.jpg';
-import {Lsection,Overlay,Title,Span,Contain,Button1,Button1C,Button2,Button2c,Input,Input2,Container,Rsection,ButtonS,Form,BlueFacebook,RedGoogle,HLine} from './SignUPcss.js';
-import {FullScreen,Popup,ChooseContainer,ChooseButton,VLine} from '../LogIn/LogIncss';
-import NotePopup ,{showPopupNote}from '../PopUp/NotePopup';
+import {
+  Lsection,
+  Overlay,
+  Title,
+  Span,
+  Contain,
+  Button1,
+  Button1C,
+  Button2,
+  Button2c,
+  Input,
+  Input2,
+  Container,
+  Rsection,
+  ButtonS,
+  Form,
+  BlueFacebook,
+  RedGoogle,
+  HLine,
+} from './SignUPcss.js';
+import {
+  FullScreen,
+  Popup,
+  ChooseContainer,
+  ChooseButton,
+  VLine,
+} from '../LogIn/LogIncss';
+import NotePopup, { showPopupNote } from '../PopUp/NotePopup';
 import { useNavigate } from 'react-router';
 import $ from 'jquery';
 import axios from 'axios';
@@ -11,106 +36,121 @@ import { useDispatch } from 'react-redux';
 import { registerUser } from '../../Redux/Slices/UserSlice';
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
-const EMAIL_REGEX=/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{6,24}$/;
 
-
 function SignUp() {
-
   const route = useNavigate();
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
 
-  const [user,setUser]=useState('');
-  const [validUser,setValidUser]=useState(false);
+  const [user, setUser] = useState('');
+  const [validUser, setValidUser] = useState(false);
 
+  const [email, setEmail] = useState('');
+  const [validEmail, setValidEmail] = useState(false);
 
-  const [email,setEmail]=useState('');
-  const [validEmail,setValidEmail]=useState(false);
-
-
-  const [pwd,setPwd]=useState('');
+  const [pwd, setPwd] = useState('');
   const [validPwd, setValidPwd] = useState(false);
 
-  const [matchPwd,setMatchPwd]=useState('');
+  const [matchPwd, setMatchPwd] = useState('');
   const [validMatch, setValidMatch] = useState(false);
 
-  const [errMsg,setErrMsg]=useState('');
+  const [errMsg, setErrMsg] = useState('');
 
-  useEffect(()=>{
+  useEffect(() => {
     setValidUser(USER_REGEX.test(user));
-  },[user])
+  }, [user]);
 
   useEffect(() => {
     setValidEmail(EMAIL_REGEX.test(email));
-  }, [email])
+  }, [email]);
 
   useEffect(() => {
     setValidPwd(PWD_REGEX.test(pwd));
     setValidMatch(pwd === matchPwd);
-  }, [pwd, matchPwd])
+  }, [pwd, matchPwd]);
 
   const handlesubmit = async (e) => {
-
     e.preventDefault();
 
-    if (!validUser ) {
-        setErrMsg(
-          <>  
-            <h4 style={{borderBottom:'solid 1px red'}}>Invalid User Name !!!</h4>
-            <p>   4 to 24 characters.<br />
-            Must begin with a letter.<br />
-            Letters, numbers, underscores, hyphens allowed.</p>
-          </>
-        );
-        showPopupNote();
-        return;
-    }
-
-    if(!validEmail){
+    if (!validUser) {
       setErrMsg(
         <>
-          <h4 style={{borderBottom:'solid 1px red'}}>Invalid Email !!!</h4>
-          <p>The Email must be like this : <br/> username@example.com</p>
+          <h4 style={{ borderBottom: 'solid 1px red' }}>
+            Invalid User Name !!!
+          </h4>
+          <p>
+            {' '}
+            4 to 24 characters.
+            <br />
+            Must begin with a letter.
+            <br />
+            Letters, numbers, underscores, hyphens allowed.
+          </p>
         </>
       );
       showPopupNote();
       return;
     }
 
-    if(!validPwd){
+    if (!validEmail) {
       setErrMsg(
         <>
-          <h4 style={{borderBottom:'solid 1px red'}}>Invalid Password !!!</h4>
-          <p>6 to 24 characters.<br />
-          Must include uppercase and lowercase letters, a number and a special character.<br />
-          Allowed special characters: <span aria-label="exclamation mark">!</span> <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span> <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span></p>
+          <h4 style={{ borderBottom: 'solid 1px red' }}>Invalid Email !!!</h4>
+          <p>
+            The Email must be like this : <br /> username@example.com
+          </p>
         </>
       );
       showPopupNote();
       return;
     }
 
-    if( !validMatch ){
+    if (!validPwd) {
+      setErrMsg(
+        <>
+          <h4 style={{ borderBottom: 'solid 1px red' }}>
+            Invalid Password !!!
+          </h4>
+          <p>
+            6 to 24 characters.
+            <br />
+            Must include uppercase and lowercase letters, a number and a special
+            character.
+            <br />
+            Allowed special characters:{' '}
+            <span aria-label="exclamation mark">!</span>{' '}
+            <span aria-label="at symbol">@</span>{' '}
+            <span aria-label="hashtag">#</span>{' '}
+            <span aria-label="dollar sign">$</span>{' '}
+            <span aria-label="percent">%</span>
+          </p>
+        </>
+      );
+      showPopupNote();
+      return;
+    }
+
+    if (!validMatch) {
       setErrMsg(<h4>Password does not match</h4>);
       showPopupNote();
       return;
     }
 
-    try{
-
+    try {
       const res = await axios.post(
-        'http://localhost:5000/auth/signup',
+        'https://shoppingoapi.vercel.app//auth/signup',
         {
-          name:user,
-          email:email,
-          password:pwd
+          name: user,
+          email: email,
+          password: pwd,
         }
-      )
+      );
 
       //todo response data
-    
+
       // console.log(res);
-      localStorage.setItem('userToken',res.data.token);                                                     
+      localStorage.setItem('userToken', res.data.token);
       dispatch(registerUser(res.data));
 
       setUser('');
@@ -118,40 +158,40 @@ function SignUp() {
       setPwd('');
       setMatchPwd('');
 
-      //todo pop_up after sending the info 
+      //todo pop_up after sending the info
       $('.popupdiv').fadeTo(700, 1);
       $('.fullscreen').fadeTo(700, 1);
       $('body').css('overflow', 'hidden');
-
-    }catch(err){
-
-      if (!err.response){
-        setErrMsg(<h4 >No Server Response</h4>);
+    } catch (err) {
+      if (!err.response) {
+        setErrMsg(<h4>No Server Response</h4>);
         showPopupNote();
-      }
-      else if(err.response.status!==200&&err.response.status!==201&&err.response.data.message){
+      } else if (
+        err.response.status !== 200 &&
+        err.response.status !== 201 &&
+        err.response.data.message
+      ) {
         setErrMsg(<h4>{err.response.data.message}</h4>);
         showPopupNote();
-      }
-      else if(err.response.status!==200&&err.response.status!==201&&!err.response.data.message){
+      } else if (
+        err.response.status !== 200 &&
+        err.response.status !== 201 &&
+        !err.response.data.message
+      ) {
         setErrMsg(<h4>{err.message}</h4>);
         showPopupNote();
-      }
-      else {
+      } else {
         setErrMsg(<h4>Registration Failed</h4>);
         showPopupNote();
       }
-
     }
-
   };
-
 
   return (
     <>
       <Navbar />
       <Container>
-        <NotePopup msg={errMsg} color='red'/>
+        <NotePopup msg={errMsg} color="red" />
         <FullScreen className="fullscreen">
           <Popup className="popupdiv">
             <h1
@@ -176,7 +216,7 @@ function SignUp() {
               <VLine />
               <ChooseButton
                 type="button"
-                onClick={() => { 
+                onClick={() => {
                   route('/Shop');
                   $('body').css('overflow', 'auto');
                 }}
@@ -217,23 +257,23 @@ function SignUp() {
 
           <Contain style={{marginBottom:'5px'}}>or</Contain> */}
 
-          <Form style={{marginTop:'100px'}} onSubmit={handlesubmit}>
+          <Form style={{ marginTop: '100px' }} onSubmit={handlesubmit}>
             <Input
               type="text"
               name="userName"
               required
-              autoComplete='off'
+              autoComplete="off"
               value={user}
-              onChange={(e)=>setUser(e.target.value)}
+              onChange={(e) => setUser(e.target.value)}
               placeholder="     Enter Your Name"
-              style={{marginTop:'0px'}}
+              style={{ marginTop: '0px' }}
             ></Input>
-            <Input           
+            <Input
               type="email"
               name="email"
               required
               value={email}
-              onChange={(e)=>setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="     Enter Your Email address"
             ></Input>
             <Input
@@ -241,7 +281,7 @@ function SignUp() {
               name="password"
               required
               value={pwd}
-              onChange={(e)=>setPwd(e.target.value)}
+              onChange={(e) => setPwd(e.target.value)}
               placeholder="     Enter Your Password"
             ></Input>
             <Input
@@ -249,12 +289,10 @@ function SignUp() {
               name="matchPassword"
               required
               value={matchPwd}
-              onChange={(e)=>setMatchPwd(e.target.value)}
+              onChange={(e) => setMatchPwd(e.target.value)}
               placeholder="     Confirm Your password "
             ></Input>
-            <Input2  type="submit">
-              Sign Up
-            </Input2>
+            <Input2 type="submit">Sign Up</Input2>
           </Form>
         </Rsection>
       </Container>

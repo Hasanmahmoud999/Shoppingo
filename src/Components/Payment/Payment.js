@@ -1,11 +1,11 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Container,
   InnerContainer,
   TopNavbar,
   Content,
 } from '../AddProduct/Home/AddProductCss.js';
-import  HeaderImage  from '../Profile/HeaderImage';
+import HeaderImage from '../Profile/HeaderImage';
 import SideNavbar from '../AddProduct/SideNavbar/SideNavbar';
 import { useNavigate } from 'react-router';
 import { IconButton } from '@mui/material';
@@ -36,16 +36,14 @@ function Payment(props) {
   const dispatch = useDispatch();
   const [errMsg, setErrMsg] = useState('');
 
-  const [image,setImage]=useState();
-  useEffect(()=>{
-    
-    if(user.imageUrl.length>1){
-      setImage(`http://localhost:5000/${user.imageUrl}`);
-    }
-    else{
+  const [image, setImage] = useState();
+  useEffect(() => {
+    if (user.imageUrl.length > 1) {
+      setImage(`https://shoppingoapi.vercel.app//${user.imageUrl}`);
+    } else {
       setImage(require('../../Images/Default.jpg'));
     }
-  })
+  });
 
   const handlePopup = (e) => {
     e.preventDefault();
@@ -81,7 +79,7 @@ function Payment(props) {
 
     try {
       const res = await axios.post(
-        'http://localhost:5000/managment/filterpayments',
+        'https://shoppingoapi.vercel.app//managment/filterpayments',
         {
           filterbyprice: f_price,
           filterbydate: f_date,
@@ -93,7 +91,7 @@ function Payment(props) {
           },
         }
       );
-        // console.log(res.data)
+      // console.log(res.data)
       dispatch(updatePayment(res.data.data));
     } catch (err) {
       if (!err.response) {
@@ -161,8 +159,7 @@ function Payment(props) {
               Hello , {user.name}
             </div>
 
-            <HeaderImage image={image}
-            ></HeaderImage>
+            <HeaderImage image={image}></HeaderImage>
           </div>
         </TopNavbar>
 

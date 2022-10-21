@@ -3,21 +3,22 @@ import './ProductCard.css';
 import j from '../../../Images/Jacket.webp';
 import { Favorite, Star } from '@material-ui/icons';
 import { useNavigate } from 'react-router';
-import  { clearSleepingPopup, showSleepingPopup, sleep } from '../../PopUp/SleepingPopup';
-
+import {
+  clearSleepingPopup,
+  showSleepingPopup,
+  sleep,
+} from '../../PopUp/SleepingPopup';
 
 function ProductCard(props) {
   const route = useNavigate();
 
-  const future=async()=>{
-
+  const future = async () => {
     showSleepingPopup();
 
     await sleep(2000);
 
     clearSleepingPopup();
-
-  }
+  };
 
   return (
     <div
@@ -32,7 +33,7 @@ function ProductCard(props) {
       }}
     >
       <img
-        src={`http://localhost:5000/${props.image}`}
+        src={`https://shoppingoapi.vercel.app//${props.image}`}
         alt="product img"
         className="card-img-top"
         style={{ borderRadius: '20px', height: '353px', maxHeight: '353px' }}
@@ -59,11 +60,11 @@ function ProductCard(props) {
       </h5>
 
       <div style={{ textAlign: 'center' }}>
-        <Star id="star1" className="star-btn-offers" onClick={future}/>
-        <Star id="star2" className="star-btn-offers" onClick={future}/>
-        <Star id="star3" className="star-btn-offers" onClick={future}/>
-        <Star id="star4" className="star-btn-offers" onClick={future}/>
-        <Star id="star5" className="star-btn-offers" onClick={future}/>
+        <Star id="star1" className="star-btn-offers" onClick={future} />
+        <Star id="star2" className="star-btn-offers" onClick={future} />
+        <Star id="star3" className="star-btn-offers" onClick={future} />
+        <Star id="star4" className="star-btn-offers" onClick={future} />
+        <Star id="star5" className="star-btn-offers" onClick={future} />
       </div>
 
       <div style={{ textAlign: 'center', marginTop: '10px' }}>

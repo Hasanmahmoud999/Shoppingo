@@ -2,52 +2,72 @@ import React from 'react';
 import './ProductCard.css';
 import { Favorite, Star } from '@material-ui/icons';
 import { useNavigate } from 'react-router';
-import  { clearSleepingPopup, showSleepingPopup, sleep } from '../../PopUp/SleepingPopup';
-
+import {
+  clearSleepingPopup,
+  showSleepingPopup,
+  sleep,
+} from '../../PopUp/SleepingPopup';
 
 function ProductCard(props) {
+  const route = useNavigate();
 
-    const route=useNavigate();
+  const future = async () => {
+    showSleepingPopup();
 
-    const future=async()=>{
+    await sleep(2000);
 
-        showSleepingPopup();
+    clearSleepingPopup();
+  };
 
-        await sleep(2000);
+  return (
+    <div
+      className="card"
+      style={{
+        width: '20%',
+        marginInline: '10px',
+        marginBottom: '20px',
+        paddingBottom: '20px',
+        borderRadius: '20px',
+        boxShadow: '5px 5px 5px 5px rgba(0,0,0,0.25)',
+      }}
+    >
+      <img
+        src={`https://shoppingoapi.vercel.app//${props.image}`}
+        alt="product img"
+        className="card-img-top"
+        style={{ borderRadius: '20px', height: '353px', maxHeight: '353px' }}
+        onClick={() => route(`/ProductDetail/${props.id}`)}
+      />
 
-        clearSleepingPopup();
+      <button className="card-img-overlay heart-btn" onClick={future}>
+        <Favorite />
+      </button>
 
-    }
+      <h4 className="text-center" style={{ color: '#0D065E' }}>
+        {props.desc}
+      </h4>
 
-    return (
-  
-        <div className='card' style={{width:'20%' ,marginInline:'10px',marginBottom:'20px',paddingBottom:'20px',borderRadius:'20px',boxShadow:'5px 5px 5px 5px rgba(0,0,0,0.25)'}}>
-            <img src={`http://localhost:5000/${props.image}`} alt="product img" className="card-img-top" style={{borderRadius:'20px',height:"353px",maxHeight: '353px'}} onClick={()=>route(`/ProductDetail/${props.id}`)}/>
+      <h5 className="text-center" style={{ color: '#7D6A06' }}>
+        {props.price} sp
+      </h5>
 
-            <button className='card-img-overlay heart-btn' onClick={future}>
-            <Favorite/>
-            </button>
+      <div style={{ textAlign: 'center' }}>
+        <Star id="star1" className="star-btn" onClick={future} />
+        <Star id="star2" className="star-btn" onClick={future} />
+        <Star id="star3" className="star-btn" onClick={future} />
+        <Star id="star4" className="star-btn" onClick={future} />
+        <Star id="star5" className="star-btn" onClick={future} />
+      </div>
 
-            <h4 className='text-center'  style={{color:'#0D065E'}}>{props.desc}</h4>
-
-            <h5 className='text-center' style={{color:'#7D6A06'}}>{props.price} sp</h5>
-
-            <div style={{textAlign:'center'}} >
-                <Star id="star1" className='star-btn' onClick={future}/>
-                <Star id="star2" className='star-btn' onClick={future}/>
-                <Star id="star3" className='star-btn' onClick={future}/>
-                <Star id="star4" className='star-btn' onClick={future}/>
-                <Star id="star5" className='star-btn' onClick={future}/>
-            </div>
-
-            <div style={{textAlign:'center',marginTop:'10px'}}>
-                <span style={{color:'#0D065E',fontSize:'15px'}}>1.5/5</span>
-                <Star className='star-rate' style={{fontSize:'33px',color:'yellow'}}/>   
-            </div>
-
-        </div>
-            
-    );
+      <div style={{ textAlign: 'center', marginTop: '10px' }}>
+        <span style={{ color: '#0D065E', fontSize: '15px' }}>1.5/5</span>
+        <Star
+          className="star-rate"
+          style={{ fontSize: '33px', color: 'yellow' }}
+        />
+      </div>
+    </div>
+  );
 }
 
 export default ProductCard;

@@ -53,7 +53,7 @@ function Offersbody(props) {
     //   : $('#nearest_loc').css('display', 'none');
 
     axios
-      .get('http://localhost:5000/shop/getProducts', {
+      .get('https://shoppingoapi.vercel.app//shop/getProducts', {
         headers: {
           authorization: `Bearer ${token}`,
         },
@@ -75,7 +75,7 @@ function Offersbody(props) {
 
     axios
       .post(
-        'http://localhost:5000/shop/ProductFilter',
+        'https://shoppingoapi.vercel.app//shop/ProductFilter',
         { typeOfFilter: 'LOW', fromOffer: true },
         {
           headers: {
@@ -102,7 +102,7 @@ function Offersbody(props) {
     setcategOffer2([]);
     axios
       .post(
-        'http://localhost:5000/shop/ProductFilter',
+        'https://shoppingoapi.vercel.app//shop/ProductFilter',
         { typeOfFilter: 'HIGH', fromOffer: true },
         {
           headers: {
@@ -130,7 +130,7 @@ function Offersbody(props) {
     setcategOffer2([]);
     axios
       .post(
-        'http://localhost:5000/shop/ProductFilter',
+        'https://shoppingoapi.vercel.app//shop/ProductFilter',
         { from: From, to: To },
         {
           headers: {
@@ -160,7 +160,7 @@ function Offersbody(props) {
 
     axios
       .post(
-        'http://localhost:5000/shop/getCategoriesProduct',
+        'https://shoppingoapi.vercel.app//shop/getCategoriesProduct',
         {
           categ: categ,
           gender: gender,
@@ -192,7 +192,7 @@ function Offersbody(props) {
 
     axios
       .post(
-        'http://localhost:5000/shop/getCategoriesProduct',
+        'https://shoppingoapi.vercel.app//shop/getCategoriesProduct',
         {
           gender: gender,
         },
@@ -214,7 +214,7 @@ function Offersbody(props) {
 
   return (
     <div className="back-offers">
-      <SleepingPopup msg="For Future Development" color="red"/>
+      <SleepingPopup msg="For Future Development" color="red" />
       <Navbar />
 
       <div>
@@ -879,20 +879,18 @@ function Offersbody(props) {
               // console.log(index);
               return one.shops
                 ? one.shops.map((item, index) => {
-
-                      if(item.newPrice!=item.oldPrice){
-                          return (
-                            <ProductCard
-                              key={index}
-                              image={one.productImage}
-                              desc={one.description}
-                              oldprice={item.oldPrice}
-                              newprice={item.newPrice}
-                              id={one._id}
-                            />
-                          );
-                      }
-               
+                    if (item.newPrice != item.oldPrice) {
+                      return (
+                        <ProductCard
+                          key={index}
+                          image={one.productImage}
+                          desc={one.description}
+                          oldprice={item.oldPrice}
+                          newprice={item.newPrice}
+                          id={one._id}
+                        />
+                      );
+                    }
                   })
                 : '';
             })
@@ -944,27 +942,7 @@ function Offersbody(props) {
           ? categOffer2.map((one) => {
               return one.shops
                 ? one.shops.map((item, index) => {
-                      if(item.newPrice!=item.oldPrice){
-                        return (
-                          <ProductCard
-                            key={index}
-                            image={one.productImage}
-                            desc={one.description}
-                            oldprice={item.oldPrice}
-                            newprice={item.newPrice}
-                            id={one._id}
-                          />
-                        );
-                      }
-                  })
-                : '';
-            })
-          : ''}
-        {GenderSortOffer2 ? (
-          GenderSortOffer2.map((one, index) => {
-            return one.shops
-              ? one.shops.map((item, index) => {
-                    if(item.newPrice!=item.oldPrice){
+                    if (item.newPrice != item.oldPrice) {
                       return (
                         <ProductCard
                           key={index}
@@ -976,6 +954,26 @@ function Offersbody(props) {
                         />
                       );
                     }
+                  })
+                : '';
+            })
+          : ''}
+        {GenderSortOffer2 ? (
+          GenderSortOffer2.map((one, index) => {
+            return one.shops
+              ? one.shops.map((item, index) => {
+                  if (item.newPrice != item.oldPrice) {
+                    return (
+                      <ProductCard
+                        key={index}
+                        image={one.productImage}
+                        desc={one.description}
+                        oldprice={item.oldPrice}
+                        newprice={item.newPrice}
+                        id={one._id}
+                      />
+                    );
+                  }
                 })
               : '';
           })
