@@ -56,7 +56,7 @@ function Shopbody(props) {
 
   useEffect(() => {
     axios
-      .get('https://shoppingoapi.vercel.app//shop/getProducts', {
+      .get('https://shoppingoapi.vercel.app/shop/getProducts', {
         headers: {
           authorization: `Bearer ${token}`,
         },
@@ -84,7 +84,7 @@ function Shopbody(props) {
 
     axios
       .post(
-        'https://shoppingoapi.vercel.app//shop/ProductFilter',
+        'https://shoppingoapi.vercel.app/shop/ProductFilter',
         { typeOfFilter: 'LOW' },
         {
           headers: {
@@ -114,7 +114,7 @@ function Shopbody(props) {
     setGenderSortNoOffer2([]);
     axios
       .post(
-        'https://shoppingoapi.vercel.app//shop/ProductFilter',
+        'https://shoppingoapi.vercel.app/shop/ProductFilter',
         { typeOfFilter: 'HIGH' },
         {
           headers: {
@@ -145,7 +145,7 @@ function Shopbody(props) {
     setGenderSortNoOffer2([]);
     axios
       .post(
-        'https://shoppingoapi.vercel.app//shop/ProductFilter',
+        'https://shoppingoapi.vercel.app/shop/ProductFilter',
         { from: From, to: To },
         {
           headers: {
@@ -176,7 +176,7 @@ function Shopbody(props) {
 
     axios
       .post(
-        'https://shoppingoapi.vercel.app//shop/getCategoriesProduct',
+        'https://shoppingoapi.vercel.app/shop/getCategoriesProduct',
         {
           categ: categ,
           gender: gender,
@@ -209,7 +209,7 @@ function Shopbody(props) {
 
     axios
       .post(
-        'https://shoppingoapi.vercel.app//shop/getCategoriesProduct',
+        'https://shoppingoapi.vercel.app/shop/getCategoriesProduct',
         {
           gender: gender,
         },

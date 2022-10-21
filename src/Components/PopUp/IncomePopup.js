@@ -44,7 +44,7 @@ function IncomePopup(props) {
 
     axios
       .post(
-        'https://shoppingoapi.vercel.app//managment/addIncome',
+        'https://shoppingoapi.vercel.app/managment/addIncome',
         {
           value: TotalIncome,
         },

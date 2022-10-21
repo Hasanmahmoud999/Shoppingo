@@ -88,7 +88,7 @@ function Dashboard() {
 
   useEffect(() => {
     if (user.user.imageUrl.length > 1) {
-      setImage(`https://shoppingoapi.vercel.app//${user.user.imageUrl}`);
+      setImage(`https://shoppingoapi.vercel.app/${user.user.imageUrl}`);
     } else {
       setImage(require('../../Images/Default.jpg'));
     }
@@ -96,7 +96,7 @@ function Dashboard() {
 
   useEffect(() => {
     axios
-      .get('https://shoppingoapi.vercel.app//managment/getdatadashboard', {
+      .get('https://shoppingoapi.vercel.app/managment/getdatadashboard', {
         headers: {
           authorization: `Bearer ${token}`,
         },

@@ -53,7 +53,7 @@ function Offersbody(props) {
     //   : $('#nearest_loc').css('display', 'none');
 
     axios
-      .get('https://shoppingoapi.vercel.app//shop/getProducts', {
+      .get('https://shoppingoapi.vercel.app/shop/getProducts', {
         headers: {
           authorization: `Bearer ${token}`,
         },
@@ -75,7 +75,7 @@ function Offersbody(props) {
 
     axios
       .post(
-        'https://shoppingoapi.vercel.app//shop/ProductFilter',
+        'https://shoppingoapi.vercel.app/shop/ProductFilter',
         { typeOfFilter: 'LOW', fromOffer: true },
         {
           headers: {
@@ -102,7 +102,7 @@ function Offersbody(props) {
     setcategOffer2([]);
     axios
       .post(
-        'https://shoppingoapi.vercel.app//shop/ProductFilter',
+        'https://shoppingoapi.vercel.app/shop/ProductFilter',
         { typeOfFilter: 'HIGH', fromOffer: true },
         {
           headers: {
@@ -130,7 +130,7 @@ function Offersbody(props) {
     setcategOffer2([]);
     axios
       .post(
-        'https://shoppingoapi.vercel.app//shop/ProductFilter',
+        'https://shoppingoapi.vercel.app/shop/ProductFilter',
         { from: From, to: To },
         {
           headers: {
@@ -160,7 +160,7 @@ function Offersbody(props) {
 
     axios
       .post(
-        'https://shoppingoapi.vercel.app//shop/getCategoriesProduct',
+        'https://shoppingoapi.vercel.app/shop/getCategoriesProduct',
         {
           categ: categ,
           gender: gender,
@@ -192,7 +192,7 @@ function Offersbody(props) {
 
     axios
       .post(
-        'https://shoppingoapi.vercel.app//shop/getCategoriesProduct',
+        'https://shoppingoapi.vercel.app/shop/getCategoriesProduct',
         {
           gender: gender,
         },

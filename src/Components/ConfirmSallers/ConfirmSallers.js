@@ -40,7 +40,7 @@ function ConfirmSallers(props) {
   useEffect(() => {
     axios
       .get(
-        'https://shoppingoapi.vercel.app//auth/admin/getAllSeller',
+        'https://shoppingoapi.vercel.app/auth/admin/getAllSeller',
 
         {
           headers: {
@@ -59,7 +59,7 @@ function ConfirmSallers(props) {
   function AdminDes(Email, Boolen) {
     axios
       .post(
-        `https://shoppingoapi.vercel.app//auth/admin/${Email}/${Boolen}`,
+        `https://shoppingoapi.vercel.app/auth/admin/${Email}/${Boolen}`,
         { hello: 'hello' },
         {
           headers: {

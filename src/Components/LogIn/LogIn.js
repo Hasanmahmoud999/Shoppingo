@@ -45,7 +45,7 @@ function LogIn() {
 
     try {
       const res = await axios.post(
-        'https://shoppingoapi.vercel.app//auth/login',
+        'https://shoppingoapi.vercel.app/auth/login',
         {
           email: email,
           password: pwd,

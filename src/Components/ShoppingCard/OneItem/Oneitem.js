@@ -11,7 +11,7 @@ function Oneitem(props) {
   const removeOne = (e) => {
     axios
       .post(
-        'https://shoppingoapi.vercel.app//cart/deleteFromCart',
+        'https://shoppingoapi.vercel.app/cart/deleteFromCart',
         {
           id: props.i_id,
         },
@@ -57,7 +57,7 @@ function Oneitem(props) {
     if ((operation == '-' && props.qty > 1) || operation == '+') {
       axios
         .post(
-          'https://shoppingoapi.vercel.app//cart/updatequantity',
+          'https://shoppingoapi.vercel.app/cart/updatequantity',
           {
             product: props.i_id,
             quantity: operation == '+' ? props.qty + 1 : props.qty - 1,
@@ -112,7 +112,7 @@ function Oneitem(props) {
         <div className="items-padding">
           <h5>Photo</h5>
           <img
-            src={`https://shoppingoapi.vercel.app//${props.img}`}
+            src={`https://shoppingoapi.vercel.app/${props.img}`}
             alt="Product img"
             style={{ width: '100px', height: '100px', borderRadius: '20px' }}
           />

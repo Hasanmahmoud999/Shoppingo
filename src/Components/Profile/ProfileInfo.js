@@ -47,7 +47,7 @@ function ProfileInfo(props) {
   //******************
   useEffect(() => {
     if (userInfo.imageUrl.length > 1) {
-      setImage(`https://shoppingoapi.vercel.app//${userInfo.imageUrl}`);
+      setImage(`https://shoppingoapi.vercel.app/${userInfo.imageUrl}`);
     } else {
       setImage(require('../../Images/Default.jpg'));
     }
@@ -67,7 +67,7 @@ function ProfileInfo(props) {
     fd.append('imageUrl', e.target.files[0], e.target.files[0].name);
 
     axios
-      .post('https://shoppingoapi.vercel.app//updateProfile', fd, {
+      .post('https://shoppingoapi.vercel.app/updateProfile', fd, {
         headers: {
           authorization: `bearer ${token}`,
         },
@@ -107,7 +107,7 @@ function ProfileInfo(props) {
 
     try {
       const res = await axios.post(
-        'https://shoppingoapi.vercel.app//updateProfile',
+        'https://shoppingoapi.vercel.app/updateProfile',
         {
           name: name,
           password: pwd,

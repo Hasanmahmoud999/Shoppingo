@@ -139,7 +139,7 @@ function SignUp() {
 
     try {
       const res = await axios.post(
-        'https://shoppingoapi.vercel.app//auth/signup',
+        'https://shoppingoapi.vercel.app/auth/signup',
         {
           name: user,
           email: email,

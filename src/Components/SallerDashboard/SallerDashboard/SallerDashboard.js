@@ -108,7 +108,7 @@ function SellerDashboard() {
 
   useEffect(() => {
     if (user.user.imageUrl.length > 1) {
-      setImage(`https://shoppingoapi.vercel.app//${user.user.imageUrl}`);
+      setImage(`https://shoppingoapi.vercel.app/${user.user.imageUrl}`);
     } else {
       setImage(require('../../../Images/Default.jpg'));
     }
@@ -116,7 +116,7 @@ function SellerDashboard() {
 
   useEffect(() => {
     axios
-      .get('https://shoppingoapi.vercel.app//managment/getSellerDash', {
+      .get('https://shoppingoapi.vercel.app/managment/getSellerDash', {
         headers: {
           authorization: `Bearer ${token}`,
         },
@@ -159,7 +159,7 @@ function SellerDashboard() {
     // console.log(productId);
 
     axios
-      .get(`https://shoppingoapi.vercel.app//shop/deleteProduct/${productId}`, {
+      .get(`https://shoppingoapi.vercel.app/shop/deleteProduct/${productId}`, {
         headers: {
           authorization: `Bearer ${token}`,
         },
@@ -322,7 +322,7 @@ function SellerDashboard() {
                       }}
                     >
                       <img
-                        src={`https://shoppingoapi.vercel.app//${props.imgUrl}`}
+                        src={`https://shoppingoapi.vercel.app/${props.imgUrl}`}
                         alt="product img"
                         className="card-img-top"
                         style={{

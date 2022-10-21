@@ -44,7 +44,7 @@ function PremiumsPopup(props) {
 
     axios
       .post(
-        `https://shoppingoapi.vercel.app//managment/addInstallment/${props.id}`,
+        `https://shoppingoapi.vercel.app/managment/addInstallment/${props.id}`,
         {
           payment: TotalIncome,
         },

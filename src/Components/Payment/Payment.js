@@ -39,7 +39,7 @@ function Payment(props) {
   const [image, setImage] = useState();
   useEffect(() => {
     if (user.imageUrl.length > 1) {
-      setImage(`https://shoppingoapi.vercel.app//${user.imageUrl}`);
+      setImage(`https://shoppingoapi.vercel.app/${user.imageUrl}`);
     } else {
       setImage(require('../../Images/Default.jpg'));
     }
@@ -79,7 +79,7 @@ function Payment(props) {
 
     try {
       const res = await axios.post(
-        'https://shoppingoapi.vercel.app//managment/filterpayments',
+        'https://shoppingoapi.vercel.app/managment/filterpayments',
         {
           filterbyprice: f_price,
           filterbydate: f_date,

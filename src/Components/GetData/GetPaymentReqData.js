@@ -13,7 +13,7 @@ function GetPaymentReqData(props) {
 
   if (token) {
     axios
-      .get('https://shoppingoapi.vercel.app//managment/getallreqpayments', {
+      .get('https://shoppingoapi.vercel.app/managment/getallreqpayments', {
         headers: {
           authorization: `bearer ${token}`,
         },

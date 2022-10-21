@@ -62,7 +62,7 @@ function Productdetailbody(props) {
 
           axios
             .post(
-              `https://shoppingoapi.vercel.app//shop/displayProduct/${id}`,
+              `https://shoppingoapi.vercel.app/shop/displayProduct/${id}`,
               {
                 lat: coords.lat,
                 log: coords.lng,
@@ -165,7 +165,7 @@ function Productdetailbody(props) {
 
   useEffect(() => {
     if (Object.keys(product).length && id == product.id) {
-      setImage(`https://shoppingoapi.vercel.app//${product.image}`);
+      setImage(`https://shoppingoapi.vercel.app/${product.image}`);
     }
   });
 
@@ -176,7 +176,7 @@ function Productdetailbody(props) {
 
     axios
       .post(
-        'https://shoppingoapi.vercel.app//cart/addItemToCart',
+        'https://shoppingoapi.vercel.app/cart/addItemToCart',
         {
           cartItems: [
             {

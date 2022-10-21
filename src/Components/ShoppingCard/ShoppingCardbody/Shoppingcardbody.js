@@ -19,7 +19,7 @@ function Shoppingcardbody(props) {
     let isRequested = false;
 
     axios
-      .get('https://shoppingoapi.vercel.app//cart/getCart', {
+      .get('https://shoppingoapi.vercel.app/cart/getCart', {
         headers: {
           authorization: `bearer ${token}`,
         },
@@ -62,7 +62,7 @@ function Shoppingcardbody(props) {
 
   const addToPayment = (e) => {
     axios
-      .get('https://shoppingoapi.vercel.app//cart/addCartToPayments', {
+      .get('https://shoppingoapi.vercel.app/cart/addCartToPayments', {
         headers: {
           authorization: `bearer ${token}`,
         },
@@ -101,7 +101,7 @@ function Shoppingcardbody(props) {
     cartItems.map((one) => {
       axios
         .post(
-          'https://shoppingoapi.vercel.app//cart/deleteFromCart',
+          'https://shoppingoapi.vercel.app/cart/deleteFromCart',
           {
             id: one.id,
           },

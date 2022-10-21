@@ -12,7 +12,7 @@ function GetProfileData(props) {
 
   if (token) {
     axios
-      .get('https://shoppingoapi.vercel.app//profile', {
+      .get('https://shoppingoapi.vercel.app/profile', {
         headers: {
           authorization: `bearer ${token}`,
         },

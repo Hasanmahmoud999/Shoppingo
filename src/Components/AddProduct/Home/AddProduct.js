@@ -97,7 +97,7 @@ function AddProduct(props) {
     if (fromdash) {
       axios
         .get(
-          `https://shoppingoapi.vercel.app//shop/getProductInfoForUpdate/${id}`,
+          `https://shoppingoapi.vercel.app/shop/getProductInfoForUpdate/${id}`,
           {
             headers: {
               authorization: `Bearer ${token}`,
@@ -113,7 +113,7 @@ function AddProduct(props) {
     }
 
     if (user.user.imageUrl.length > 1) {
-      setImage(`https://shoppingoapi.vercel.app//${user.user.imageUrl}`);
+      setImage(`https://shoppingoapi.vercel.app/${user.user.imageUrl}`);
     } else {
       setImage(require('../../../Images/Default.jpg'));
     }
@@ -198,7 +198,7 @@ function AddProduct(props) {
 
       axios
         .post(
-          `https://shoppingoapi.vercel.app//shop/updateProduct/${id}`,
+          `https://shoppingoapi.vercel.app/shop/updateProduct/${id}`,
           {
             colors1: ColorArr,
             quantity: quantity,
@@ -263,7 +263,7 @@ function AddProduct(props) {
       // fd.append('colors1',ColorArr);
 
       axios
-        .post('https://shoppingoapi.vercel.app//shop/addProduct', fd, {
+        .post('https://shoppingoapi.vercel.app/shop/addProduct', fd, {
           headers: { authorization: `bearer ${token}` },
         })
         .then((res) => {

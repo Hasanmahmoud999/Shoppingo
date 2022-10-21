@@ -23,7 +23,7 @@ function Navbar(props) {
   const [image, setImage] = useState();
   useEffect(() => {
     if (user.user.imageUrl.length > 1) {
-      setImage(`https://shoppingoapi.vercel.app//${user.user.imageUrl}`);
+      setImage(`https://shoppingoapi.vercel.app/${user.user.imageUrl}`);
     } else {
       setImage(require('../../../Images/Default.jpg'));
     }

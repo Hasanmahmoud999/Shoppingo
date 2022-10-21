@@ -90,7 +90,7 @@ function ResetPassword(props) {
 
     try {
       const res = await axios.post(
-        'https://shoppingoapi.vercel.app//auth/forgetPassword',
+        'https://shoppingoapi.vercel.app/auth/forgetPassword',
         {
           email: email,
         }
@@ -171,7 +171,7 @@ function ResetPassword(props) {
 
     try {
       const res = await axios.post(
-        'https://shoppingoapi.vercel.app//auth/resetPassword',
+        'https://shoppingoapi.vercel.app/auth/resetPassword',
         {
           password: pwd,
         }

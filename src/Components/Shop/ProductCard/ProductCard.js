@@ -32,7 +32,7 @@ function ProductCard(props) {
       }}
     >
       <img
-        src={`https://shoppingoapi.vercel.app//${props.image}`}
+        src={`https://shoppingoapi.vercel.app/${props.image}`}
         alt="product img"
         className="card-img-top"
         style={{ borderRadius: '20px', height: '353px', maxHeight: '353px' }}

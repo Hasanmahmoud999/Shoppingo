@@ -28,7 +28,7 @@ function RequiredPaymentCard(props) {
   const deleteReq = (e) => {
     axios
       .get(
-        `https://shoppingoapi.vercel.app//managment/deleteInstallment/${props.id}`,
+        `https://shoppingoapi.vercel.app/managment/deleteInstallment/${props.id}`,
         {
           headers: {
             authorization: `bearer ${token}`,
@@ -75,7 +75,7 @@ function RequiredPaymentCard(props) {
   const monthly = (e) => {
     axios
       .get(
-        `https://shoppingoapi.vercel.app//managment/monthlyinstallment/${props.id}`,
+        `https://shoppingoapi.vercel.app/managment/monthlyinstallment/${props.id}`,
         {
           headers: {
             authorization: `bearer ${token}`,
@@ -124,7 +124,7 @@ function RequiredPaymentCard(props) {
   const pay = (e) => {
     axios
       .post(
-        `https://shoppingoapi.vercel.app//managment/addInstallment/${props.id}`,
+        `https://shoppingoapi.vercel.app/managment/addInstallment/${props.id}`,
         {
           payment: props.value,
         },

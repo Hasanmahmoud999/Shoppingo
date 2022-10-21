@@ -11,7 +11,7 @@ function Marker({ image, color }) {
       style={{ backgroundColor: color, borderColor: color }}
     >
       <img
-        src={`https://shoppingoapi.vercel.app//${image}`}
+        src={`https://shoppingoapi.vercel.app/${image}`}
         alt="product image"
         className="marker-img"
       />

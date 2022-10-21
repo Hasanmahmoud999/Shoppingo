@@ -131,7 +131,7 @@ function UpgradeProfile() {
 
     try {
       const res = await axios.post(
-        'https://shoppingoapi.vercel.app//auth/ubgrade',
+        'https://shoppingoapi.vercel.app/auth/ubgrade',
         {
           emailShop: email,
           phone: phone,

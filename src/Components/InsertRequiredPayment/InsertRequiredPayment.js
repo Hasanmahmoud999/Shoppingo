@@ -115,7 +115,7 @@ function InsertRequiredPayment(props) {
   const [image, setImage] = useState();
   useEffect(() => {
     if (user.user.imageUrl.length > 1) {
-      setImage(`https://shoppingoapi.vercel.app//${user.user.imageUrl}`);
+      setImage(`https://shoppingoapi.vercel.app/${user.user.imageUrl}`);
     } else {
       setImage(require('../../Images/Default.jpg'));
     }
@@ -138,7 +138,7 @@ function InsertRequiredPayment(props) {
     if (updatedId) {
       axios
         .post(
-          `https://shoppingoapi.vercel.app//managment/updateInstallment/${updatedId}`,
+          `https://shoppingoapi.vercel.app/managment/updateInstallment/${updatedId}`,
           {
             name: Name,
             value: Value,
@@ -181,7 +181,7 @@ function InsertRequiredPayment(props) {
     } else {
       axios
         .post(
-          'https://shoppingoapi.vercel.app//managment/addPaymentReq',
+          'https://shoppingoapi.vercel.app/managment/addPaymentReq',
           {
             name: Name,
             value: Value,

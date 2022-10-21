@@ -49,7 +49,7 @@ function InsertP(props) {
   const [image, setImage] = useState();
   useEffect(() => {
     if (user.user.imageUrl.length > 1) {
-      setImage(`https://shoppingoapi.vercel.app//${user.user.imageUrl}`);
+      setImage(`https://shoppingoapi.vercel.app/${user.user.imageUrl}`);
     } else {
       setImage(require('../../Images/Default.jpg'));
     }
@@ -66,7 +66,7 @@ function InsertP(props) {
     e.preventDefault();
     try {
       const res = await axios.post(
-        'https://shoppingoapi.vercel.app//managment/addpayment',
+        'https://shoppingoapi.vercel.app/managment/addpayment',
         {
           name: PaymentName,
           value: PaymentValue,
